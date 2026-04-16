@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/miniLogo.png" type="image/x-icon">
+    <title>Nouvelle</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/inicio.css">
+</head>
+<body>
+    <nav class="menu">
+        <a href="/">
+            <img src="/assets/logo.png" alt="Nouvelle" width="200" height="100">
+        </a>
+
+        <input type="checkbox" id="menu-burguer">
+        <label for="menu-burguer" class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <ul class="menu-links">
+            <li><a class="menuInicio" href="/">Início</a></li>
+            <li><a class="menuFilmesCartaz" href="/filmesCartaz">Filmes em Cartaz</a></li>      
+            <li><a class="menuEmBreve" href="/emBreve">Em Breve</a></li> 
+        </ul>
+        <ul class="menu-login">
+            {% if request.cookies.get('usuario_nome') %}
+                <li><a id="menuPerfil" href="/perfil" >Olá, {{ request.cookies.get('usuario_nome').split()[0] }}</a></li>
+                <li><a id="menuLogout" href="/logout" class="btn-entrar">Sair</a></li>
+            {% else %}
+                <li><a id="menuLogin" href="/login" class="btn-entrar">Entrar</a></li>
+                <li><a id="menuCadastro" href="/cadastro" class="btn-cadastrar">Cadastrar</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="banner-carrossel">
+        <button class="seta seta-esquerda" id="prev">&#10094;</button>
+        <button class="seta seta-direita" id="next">&#10095;</button>
+
+        <div class="slides-carrossel" id="slides-carrossel">
+            {% for filme in filmes %}
+
+            <div class="slide {% if loop.first %}ativo{% endif %}">
+                <a href="/detalhes/{{ filme.id }}">
+                    <img src="https://image.tmdb.org/t/p/original{{ filme.backdrop_path }}" alt="{{filme.title}}">
+                </a>
+                
+                                
+                <div class="info-filme">
+                    <h3>{{filme.title}}</h3>
+                    <p>{{filme.overview[:400]}}</p>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+    <script src="/js/index.js"></script>
+</body>
+</html>
