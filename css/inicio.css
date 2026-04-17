@@ -1,0 +1,133 @@
+.menuInicio{
+    text-shadow: 0 0 10px #f1c764;
+}
+.banner-carrossel {
+    position: relative;
+    width: 100%;
+    height: 90vh; /* ocupa 60% da altura da tela */
+    min-height: 550px;
+    background-color: #111;
+    overflow: hidden;
+}
+
+.slides-carrossel {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 0;
+}
+
+.slide.ativo {
+    opacity: 1;
+    z-index: 1;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.info-filme {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 60px;
+    color: #fff;
+    z-index: 2;
+}
+
+.info-filme h3 {
+    font-size: 40px;
+    color: #F0AD12;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.info-filme p {
+    font-size: 18px;
+    max-width: 600px;
+    line-height: 1.5;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+/* As Setas de Navegação */
+.seta {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 30px;
+    padding: 15px 20px;
+    cursor: pointer;
+    z-index: 10; /* Fica acima de tudo */
+    transition: background-color 0.3s;
+}
+
+.seta:hover {
+    background-color: #F0AD12;
+    color: #111;
+}
+
+.seta-esquerda {
+    left: 20px;
+}
+
+.seta-direita {
+    right: 20px;
+}
+
+@media (max-width: 768px) {
+    .menuInicio{
+        display: block;
+        max-width: 100%;
+        border-bottom: 0;
+        border-radius: 0;
+        text-shadow: none !important;
+        background-color: rgb(114, 23, 23);
+    }
+
+    .banner-carrossel {
+        min-height: 400px;
+    }
+    .slide{
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .slide img {
+        height: 50%;
+    }
+    .seta {
+        /* Se a imagem é 16:9, a altura dela é 56.25% da largura. Metade disso é 28.12vw. */
+        top: 28.12vw; 
+        transform: translateY(-50%); /* Garante o alinhamento perfeito pelo centro da seta */
+    }
+    .info-filme{
+        position: relative; /* Tira o "position:absolute" que prendia o texto na imagem */
+        inset: auto; /* Atalho moderno para as quatro direções ao mesmo tempo, evita o top:auto, bottom:auto, etc. */
+        transform: none;
+        width: 100%;
+        padding: 20px;
+    }
+    .info-filme h3 {
+        font-size: 28px;
+    }
+    .info-filme p {
+        font-size: 15px;
+    }
+}

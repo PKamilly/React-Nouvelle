@@ -1,0 +1,133 @@
+.menu{
+    border-bottom: 110px solid black; /* Borda preta abaixo do menu para ser o fundo da barra de pesquisa */
+}
+
+.menuFilmesCartaz{
+    text-shadow: 0 0 10px #f1c764;
+}
+
+/* Div da barra de pesquisa */
+.search-box {
+    position: sticky; /* Faz o menu grudar no topo ao rolar a página */
+    top: 150px; /* Deixa a barra de pesquisa subir até esta posição (no caso fica "colado" com o menu)*/
+    z-index: 1001; /* Garante que o menu fique sobre os outros elementos */
+    margin: 20px;
+    display: flex;
+    width: 100%;
+    max-width: 1090px;
+    background-color: #2f3640;
+    border-radius: 8px;
+    overflow: hidden; /* Garante que o botão não saia da borda arredondada */
+    height: 50px; /* Altura da barra de pesquisa */
+    margin: -90px auto 40px auto; /* O -90px puxa a barra PARA CIMA, entrando na área da borda preta. O 'auto' centraliza nas laterais. O '40px' dá um respiro embaixo dela. */
+}
+
+.search-box input {
+    flex: 1; /* Faz o input ocupar todo o espaço restante */
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 20px;
+    color: #dad9d9;
+    font-size: 16px;
+}
+
+/* Botão de pesquisa */
+.search-box button {
+    width: 60px;
+    background-color: rgb(150, 28, 28);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #F0AD12;
+    font-size: 25px;
+    transition: background 0.3s;
+}
+
+.msgErro, .msgErro1 {
+    color: rgb(150, 28, 28);
+    margin-top: 20px;
+    
+}
+
+/* Container que segura todos os filmes */
+.gradeFilmes {
+    display: flex;
+    flex-wrap: wrap;      /* Permite que os filmes pulem para a linha de baixo */
+    gap: 20px;            /* Espaço entre os filmes */
+    justify-content: center; 
+    padding: 20px;
+}
+
+.cardFilme {
+    display: flex;
+    flex-direction: column; /* Deixa a imagem em cima e título embaixo */
+    align-items: center;    /* Centraliza o título com o poster */
+    width: 250px;
+    transition: transform 0.3s ease; /* Efeito de zoom suave */
+}
+
+.cardFilme:hover {
+    transform: scale(1.05);
+    border-color: #F0AD12;
+    cursor: pointer;
+}
+
+.posterFilme {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(105, 105, 105, 0.5);
+    margin-bottom: 15px;    /* Espaço entre a imagem e o texto */
+    transition: border-color 0.3s ease;
+}
+
+.tituloFilme {
+    text-align: center;
+    font-size: 14px;
+    display: -webkit-box; /* Evita que títulos muito longos quebrem o layout */
+    overflow: hidden;
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none !important;
+}
+
+@media (max-width: 768px) {
+    .menuFilmesCartaz{
+        display: block;
+        max-width: 100%;
+        border-bottom: 0;
+        border-radius: 0;
+        text-shadow: none !important;
+        background-color: rgb(114, 23, 23);
+    }
+
+    .menu{
+        border: 0; /* Remove a borda preta do menu no mobile */
+    }
+
+    #inputBuscar {
+        width: calc(100% - 40px); 
+    }
+    /* Retira a borda redonda da barra de pesquisa e a deixa no tamanho da tela */
+    .search-box{
+        top: 120px; /* Deixa a barra de pesquisa subir até esta posição (no caso fica "colado" com o menu)*/
+        margin: 0; 
+        border-radius: 0;
+    }
+    
+    .cardFilme {
+        width: calc(50% - 20px); /* Deixa 2 filmes por linha no celular */
+        min-width: 140px;
+    }   
+}
+
+@media (max-width: 480px) {
+    .menu{
+        border: 0; /* Remove a borda preta do menu no mobile */
+    }
+    .cardFilme {
+        width: 100%; /* Deixa 1 filme por linha em telas muito pequenas */
+    }
+}

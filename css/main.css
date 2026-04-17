@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    background-color: black;
+    color:white;
+}
+
+.menu {
+    position: sticky; /* Faz o menu grudar no topo ao rolar a página */
+    top: 0; /* Deixa o menu subir até esta posição (no caso prende no topo da tela) */
+    z-index: 1000; /* Garante que o menu fique sobre os outros elementos */
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    background-color: rgb(150, 28, 28);
+    padding: 10px 40px;
+    gap: 40px;
+    max-width: 100%;
+}
+
+.menu-links, .menu-login {
+    list-style: none; /* remove as bolinhas da lista */
+    display: flex;
+    gap: 30px;
+}
+
+.menu-links a, .menu-login a {
+    display: inline-block;
+    color: #F0AD12;
+    text-decoration: none; /* para limpar a letra*/
+    font-size: 30px;
+    font-weight: 500;
+    padding: 8px 12px;
+}
+
+.menu-links a:hover, .menu-login a:hover{
+    transform: translateY(10px); /* Empurra pra baixo */
+    transition: transform 0.3s ease; /* Efeito de zoom suave */
+}
+
+.menu-login {
+    margin-left: auto;
+}
+
+#menu-burguer {
+    display: none; /* Esconde o menu "hamburguer" na tela grande */
+}
+.hamburger {
+    display: none; /* Esconde o menu "hamburguer" na tela grande */
+    flex-direction: column;
+    gap: 6px;
+}
+
+.hamburger span {
+    width: 35px;
+    height: 4px;
+    background-color: #F0AD12;
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex; /* Mostra o ícone do menu */
+    }
+    /* Barra de navegação ordenada com quebra de linhas (empurrar as opções do menu pra baixo) */
+    .menu {
+        flex-wrap: wrap;
+        justify-content: space-between; /* Mantém logo na esquerda e ícone na direita */
+        gap: 20px;
+    }
+    /* Sobrescreve o visibility: hidden */
+    .menu-links, .menu-login, .Tamanho_Logo {
+        display: none;
+    }
+    /* Formata os menus para ficarem em coluna e ocuparem a tela toda */
+    .menu-links, .menu-login, .Local_logo {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    /* Remove a margem esquerda que empurrava o login no desktop */
+    .menu-login {
+        margin-left: 0;
+        padding-bottom: 20px;
+    }
+
+    /* Quando o checkbox é marcado, mostra os menus */
+    #menu-burguer:checked ~ .menu-links, /* "checked" é um estado da tag para saber se foi apertada. Se apertada faz tal ação */
+    #menu-burguer:checked ~ .menu-login {
+        display: flex !important;
+    }
+    /* Transforma o Hambúrguer em um X para cada <span>*/
+    #menu-burguer:checked ~ .hamburger span:nth-child(1) {
+        transform: rotate(45deg) translate(7px, 7px);
+    }
+    #menu-burguer:checked ~ .hamburger span:nth-child(2) {
+        opacity: 0;
+    }
+    #menu-burguer:checked ~ .hamburger span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+}

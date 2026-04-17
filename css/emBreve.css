@@ -1,0 +1,86 @@
+.menuEmBreve{
+    text-shadow: 0 0 10px #f1c764;
+}
+
+.gradeFilmes {
+    display: grid;
+    /* Cria colunas automáticas que se ajustam ao tamanho da tela */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+    gap: 50px; /* Espaçamento entre os cards */
+    padding: 40px;
+    width: 95%;
+    margin: 0 auto;
+    justify-items: center; /* Centraliza os cards dentro das colunas */
+}
+
+
+.cardFilme {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease; /* Efeito de zoom suave */
+    cursor: pointer;
+}
+
+/* Efeito de Zoom ao passar o mouse */
+.cardFilme:hover {
+    transform: scale(1.05);
+}
+
+
+.posterFilme {
+    width: 100%;
+    height: 380px; 
+    text-decoration: none;
+  
+    object-fit: cover; 
+    object-position: center;
+    
+    border-radius: 8px; 
+    border: 2px solid #333; /* Borda padrão escura */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7); 
+    transition: border-color 0.3s ease;
+}
+
+/* Cor Amarela ao colocar o mouse na imagem */
+.cardFilme:hover .posterFilme {
+    border-color: #F0AD12; 
+}
+
+.tituloFilme {
+    margin-top: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    
+    /* Tratamento para nomes muito grandes não quebrarem o layout */
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    display: block; /* Garante que o strong se comporte como bloco abaixo da imagem */
+}
+
+.titulo-secao {
+    color: white;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+@media (max-width: 768px) {
+    .menuEmBreve{
+        display: block;
+        max-width: 100%;
+        border-bottom: 0;
+        border-radius: 0;
+        text-shadow: none !important;
+        background-color: rgb(114, 23, 23);
+    }
+    
+}
