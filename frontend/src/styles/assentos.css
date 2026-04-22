@@ -1,0 +1,308 @@
+.assentos-container {
+    background-color: rgb(150, 28, 28);
+    padding: 40px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 5% auto 2%;
+}
+
+.filme-info {
+    margin-bottom: 40px;
+}
+
+.filme-info h1 {
+    color: #F0AD12;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.detalhes-sessao {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-item .label {
+    color: #F0AD12;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.info-item .valor {
+    color: white;
+    font-size: 1.1rem;
+}
+
+.sessao-selecao {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.legenda {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-size: 1rem;
+}
+
+.legenda .assento {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    border: none;
+    cursor: default;
+}
+
+.legenda .disponivel {
+    background-color: #555;
+}
+
+.legenda .selecionado {
+    background-color: #F0AD12;
+}
+
+.legenda .indisponivel {
+    background-color: #8B0000;
+}
+
+/* Tela */
+.tela {
+    text-align: center;
+    font-size: 2rem;
+    color: #F0AD12;
+    font-weight: bold;
+    margin: 30px 0;
+    padding: 15px;
+    border: 2px solid #F0AD12;
+    border-radius: 8px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Grid de Assentos */
+.assentos-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.linha-assentos {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.assento {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #555;
+    border-radius: 4px;
+    background-color: #555;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.assento.disponivel:hover {
+    background-color: #777;
+    border-color: #F0AD12;
+    transform: scale(1.1);
+}
+
+.assento.selecionado {
+    background-color: #F0AD12;
+    color: #141414;
+    border-color: #F0AD12;
+    box-shadow: 0 0 10px rgba(240, 173, 18, 0.6);
+}
+
+.assento.indisponivel {
+    background-color: #8B0000;
+    border-color: #8B0000;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Resumo de Compra */
+.resumo-compra {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.resumo-conteudo h2 {
+    color: #F0AD12;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.assentos-selecionados {
+    margin-bottom: 25px;
+}
+
+.label-resumo {
+    color: #F0AD12;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.lista-assentos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 6px;
+    min-height: 50px;
+    align-content: flex-start;
+}
+
+.tag-assento {
+    background-color: #F0AD12;
+    color: #141414;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.lista-assentos .vazio {
+    color: #999;
+    font-style: italic;
+    width: 100%;
+}
+
+/* Preço */
+.preco-info {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.preco-linha {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.preco-linha:last-child {
+    margin-bottom: 0;
+}
+
+.preco-linha.total {
+    border-top: 2px solid #F0AD12;
+    padding-top: 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #F0AD12;
+}
+
+/* Botão Comprar */
+.btn-comprar {
+    width: 100%;
+    padding: 15px;
+    background-color: #141414;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-comprar:hover:not(:disabled) {
+    background-color: #F0AD12;
+    color: #141414;
+    box-shadow: 0 0 15px rgba(240, 173, 18, 0.5);
+}
+
+.btn-comprar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .assentos-container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .filme-info h1 {
+        font-size: 1.8rem;
+    }
+
+    .tela {
+        font-size: 1.5rem;
+    }
+
+    .assento {
+        width: 35px;
+        height: 35px;
+        font-size: 0.8rem;
+    }
+
+    .detalhes-sessao {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .legenda {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .detalhes-sessao {
+        grid-template-columns: 1fr;
+    }
+
+    .assento {
+        width: 30px;
+        height: 30px;
+        font-size: 0.7rem;
+    }
+
+    .linha-assentos {
+        gap: 8px;
+    }
+
+    .sessao-selecao {
+        padding: 15px;
+    }
+
+    .resumo-compra {
+        padding: 20px;
+    }
+}
