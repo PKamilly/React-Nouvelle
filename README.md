@@ -44,6 +44,10 @@ source venv/bin/activate
 
 # Instale as dependências
 pip install fastapi uvicorn pydantic mysql-connector-python bcrypt httpx python-multipart
+
+# Inicie a backend
+uvicorn main:app --reload
+
 ```
 ### 2. Configurando a Frontend
 
