@@ -56,7 +56,7 @@
     color: white;
     
     /* Tratamento para nomes muito grandes não quebrarem o layout */
-    width: 100%;
+    width: 250px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

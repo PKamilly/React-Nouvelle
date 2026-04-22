@@ -76,7 +76,7 @@
     display: flex;
     flex-direction: column; 
     align-items: center;    
-    width: 250px;
+    width: 200px;
     transition: transform 0.3s ease; 
 }
 
@@ -89,8 +89,12 @@
     border-color: #F0AD12; 
 }
 
+.cardFilme a {
+    text-decoration: none;
+}
+
 .posterFilme {
-    width: 100%;
+    width: 350px;
     border-radius: 10px;
     border: 2px solid transparent;
     box-shadow: 0 4px 15px rgba(105, 105, 105, 0.5);
