@@ -2,7 +2,7 @@
 Projeto da matéria Web Development: Framework (React)
 React - Nouvelle
 
-Instalar dependências da Beckend:
+Instalar dependências da backend:
 cd backend
 python -m venv venv
 pip install fastapi uvicorn pydantic mysql-connector-python bcrypt httpx python-multipart
