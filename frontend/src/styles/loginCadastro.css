@@ -1,0 +1,169 @@
+/* DIV GERAL */
+#divCadastro, #divLogin {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 70%;
+    margin: 80px auto 80px;
+}
+
+/* ============================================= */
+/* DIV DA IMAGEM (LEFT) */
+#divLeft {
+    position: sticky; /* Faz o menu grudar no mesmo local ao rolar a página */
+    top: 210px; /* Deixa o menu subir até esta posição (no caso "congela" no mesmo lugar) */
+    align-self: flex-start; /* Impede que a div estique até o final do formulário */
+    flex: 1;
+    display: flex;
+    justify-content: left;
+    padding: 40px;
+}
+.tamanho_logo {
+    flex: 0 1 450px;
+}
+.tamanho_logo img {
+    width: 100%;
+    height: auto;
+}
+
+/* MENSAGEM DE ERRO */
+.mensagem_erro {
+    color: red;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 30px;
+}
+
+/* ============================================= */
+/* DIV DOS INPUTS (RIGHT) */
+#divRight {
+    flex: 0 1 380px;
+}
+.tituloPagina{
+    color: #F0AD12;
+    margin-bottom: 30px;
+}
+
+/* CAIXAS DE TEXTO (input) */
+.login_senha_caixas {
+    margin-bottom: 15px;
+}
+.login_senha_caixas input {
+    width: 100%;
+    height: 50px;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 0 15px;
+    color: white;
+    font-size: 1rem;
+}
+.login_senha_caixas input:focus {
+    outline: 2px solid #F0AD12;
+}
+
+/* BOTÃO DE LOGIN / BOTÃO DO ENVIO DA FORMULÁRIO */
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    background-color: rgb(150, 28, 28);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 1%;
+}
+.btn-login:hover{
+    background-color: #F0AD12;
+    color: #141414;
+    transition: all 0.3s ease;
+}
+
+/* UTILIDADES */
+.utilidades {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    font-size: 0.85rem;
+}
+
+/* Torna o container o ponto de referência posicional */
+.login_senha_caixas {
+    position: relative;
+}
+
+/* Garante que o texto digitado não fique por baixo do olho */
+.login_senha_caixas input[type="password"],
+.login_senha_caixas input[type="text"] {
+    padding-right: 45px; 
+}
+
+.btn-toggle-password {
+    position: absolute;
+    right: 15px;
+    bottom: 15px; 
+    cursor: pointer;
+    color: #999;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+    z-index: 10;
+}
+
+.btn-toggle-password:hover {
+    color: #F0AD12;
+}
+
+/* ============================================= */
+/* RESPONSIVIDADE PARA O CELULAR */
+@media (max-width: 768px) {
+    #divLogin, #divCadastro {
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        margin: 40px auto;
+    }
+    #divLeft {
+        display: none;
+    }
+    #divRight {
+        flex: 1;
+        width: 100%;
+    }
+    
+    .tituloPagina {
+        text-align: center;
+        font-size: 35px;
+    }
+    
+    .login_senha_caixas h4 {
+        font-size: 25px;
+    }
+    .login_senha_caixas input {
+        height: 80px;
+        font-size: 25px;
+    }
+    .login_senha_caixas, .btn-login {
+        width: 100%;
+    }
+    .btn-login {
+        font-size: 30px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+    
+    /* Reposiciona o olhinho da senha para não ficar flutuando */
+    .btn-toggle-password {
+        height: (100% - 30px); /* Ajusta a altura para o tamanho do input */
+    }
+
+    /* UTILIDADES */
+    .utilidades{
+        flex-wrap: wrap;
+        flex-direction: column;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
