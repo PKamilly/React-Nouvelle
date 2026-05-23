@@ -28,7 +28,7 @@ function Perfil() {
         const resposta = await fetch("http://localhost:8000/perfil", {
           method: "GET",
           headers: {
-            "x-usuario-cpf": cpfLogado,
+            "usuario-cpf": cpfLogado,
           },
         });
 
@@ -72,7 +72,7 @@ function Perfil() {
       const resposta = await fetch("http://localhost:8000/atualizar_perfil", {
         method: "POST",
         headers: {
-          "x-usuario-cpf": cpfLogado,
+          "usuario-cpf": cpfLogado,
         },
         body: formData,
       });
@@ -115,7 +115,7 @@ function Perfil() {
       const resposta = await fetch("http://localhost:8000/deletar_conta", {
         method: "POST",
         headers: {
-          "x-usuario-cpf": cpfLogado,
+          "usuario-cpf": cpfLogado,
         },
       });
 
@@ -151,7 +151,7 @@ function Perfil() {
   return (
     <div>
       <Navbar />
-      <main className="Local_logo">
+      <main className="Local_logo" style={{backgroundColor: "black"}}>
         <div className="Tamanho_Logo">
           <h1 style={{ color: "#F0AD12", fontSize: "40px", marginBottom: "20px" }}>
             Meus Dados

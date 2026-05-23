@@ -59,7 +59,7 @@ function Login() {
         </div>
         
         <div id="divRight">
-          <h1 className="tituloPagina">PÁGINA DE CADASTRO</h1>
+          <h1 className="tituloPagina">PÁGINA DE LOGIN</h1>
           
           <form onSubmit={handleSubmit} id="formLogin">
             <div className="login_senha_caixas">

@@ -165,5 +165,7 @@
         display:flex;
         justify-content: center;
         align-items: center;
+        font-size: 25px;
+        margin-top: 0 !important;
     }
 }
