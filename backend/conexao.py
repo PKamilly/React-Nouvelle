@@ -7,7 +7,7 @@ def obter_conexao():
         conexao = mysql.connector.connect(
             host='localhost',
             user='root',
-            password='daya',
+            password='PUC@1234',
             database='nouvelle'
         )
 
