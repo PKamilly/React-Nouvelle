@@ -241,7 +241,7 @@ async def carregar_perfil(usuario_cpf: str = Header(default=None)):
 
     No React, a chamada fica assim:
         fetch("http://localhost:8000/perfil", {
-            headers: { "x-usuario-cpf": localStorage.getItem("usuario_cpf") }
+            headers: { "usuario-cpf": localStorage.getItem("usuario_cpf") }
         })
     '''
     if not usuario_cpf:

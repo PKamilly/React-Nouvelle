@@ -1,6 +1,8 @@
+import logoImg from "../assets/logo.png";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/cadastro.css";
+import "../styles/loginCadastro.css";
 import Navbar from "../components/Navbar";
 function Cadastro() {
 
@@ -101,76 +103,83 @@ function Cadastro() {
   return (
     <div>
       <Navbar />
-      <main className="Local_logo">
 
-        <div className="Tamanho_Logo">
-          <img src="/assets/logo.png" alt="Logo Nouvelle" />
+      <div id="divCadastro">
+
+        <div id="divLeft">
+          <div className="Tamanho_Logo">
+            <img src={logoImg} alt="Nouvelle"/>
+          </div>
         </div>
+        
+        <div id="divRight">
+          <h1 className="tituloPagina">PÁGINA DE CADASTRO</h1>
 
-        <div className="Tamanho_Caixas_TXT">
           <form onSubmit={handleSubmit} id="formCadastro">
+            <div className="Tamanho_Caixas_TXT">
+              <div className="login_senha_caixas">
+                <input
+                  type="text"
+                  placeholder="CPF (000.000.000-00)"
+                  maxLength={14}
+                  required
+                  value={cpf}
+                  onChange={(e) => aplicarMascaraCpf(e.target.value)}
+                />
+              </div>
 
-            <div className="login_senha_caixas">
-              <input
-                type="text"
-                placeholder="CPF (000.000.000-00)"
-                maxLength={14}
-                required
-                value={cpf}
-                onChange={(e) => aplicarMascaraCpf(e.target.value)}
-              />
+              <div className="login_senha_caixas">
+                <input
+                  type="text"
+                  placeholder="Nome completo"
+                  required
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                />
+              </div>
+
+              <div className="login_senha_caixas">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+
+              <div className="login_senha_caixas">
+                <input
+                  type="text"
+                  placeholder="Telefone (DD) 90000-0000"
+                  maxLength={15}
+                  required
+                  value={telefone}
+                  onChange={(e) => aplicarMascaraTelefone(e.target.value)}
+                />
+              </div>
+
+              <div className="login_senha_caixas">
+                <input
+                  type="date"
+                  required
+                  style={{ color: "#999" }}
+                  value={dataNasc}
+                  onChange={(e) => setDataNasc(e.target.value)}
+                />
+              </div>
+
+              <div className="login_senha_caixas">
+                <input
+                  type="password"
+                  placeholder="Senha"
+                  required
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
+                />
+              </div>
             </div>
 
-            <div className="login_senha_caixas">
-              <input
-                type="text"
-                placeholder="Nome completo"
-                required
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-              />
-            </div>
-
-            <div className="login_senha_caixas">
-              <input
-                type="email"
-                placeholder="Email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-
-            <div className="login_senha_caixas">
-              <input
-                type="text"
-                placeholder="Telefone (DD) 90000-0000"
-                maxLength={15}
-                required
-                value={telefone}
-                onChange={(e) => aplicarMascaraTelefone(e.target.value)}
-              />
-            </div>
-
-            <div className="login_senha_caixas">
-              <input
-                type="date"
-                required
-                style={{ color: "#999" }}
-                value={dataNasc}
-                onChange={(e) => setDataNasc(e.target.value)}
-              />
-            </div>
-
-            <div className="login_senha_caixas">
-              <input
-                type="password"
-                placeholder="Senha"
-                required
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
-              />
-            </div>
             <button type="submit" className="btn-login" disabled={carregando}>
               {carregando ? "Cadastrando..." : "Finalizar Cadastro"}
             </button>
@@ -189,7 +198,8 @@ function Cadastro() {
 
           </form>
         </div>
-      </main>
+        
+      </div>
     </div>
   );
 }

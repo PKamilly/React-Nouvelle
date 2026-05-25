@@ -89,3 +89,14 @@
     margin-top: 15px;
     text-align: center;
 }
+
+/* ============================================= */
+/* RESPONSIVIDADE PARA O CELULAR */
+@media (max-width: 768px) {
+    #divLogin, #divCadastro {
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        margin: 40px auto;
+    }
+}
