@@ -1,6 +1,7 @@
 #menuCadastro{
     text-shadow: 0 0 10px #f1c764;
 }
+
 .Local_logo {
     flex: 1;
     display: flex;
@@ -80,13 +81,7 @@
     font-weight: bold;
 }
 
-.Local_logo {
-    background-color: rgb(150, 28, 28);
-    padding: 40px;
-    border-radius: 10px;
-    width: 50%;
-    margin: 5% auto 0;
-}
+
 
 @media (max-width: 768px) {
     #menuCadastro{

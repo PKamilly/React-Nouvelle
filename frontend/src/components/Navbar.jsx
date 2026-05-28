@@ -1,4 +1,5 @@
 import logoImg from "../assets/logo.png";
+import fotoPerfilDefault from "../assets/fotoPerfilDefault.png";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -43,6 +44,18 @@ function Navbar() {
           <>
             <li>
               <Link id="menuPerfil" to="/perfil">
+                <img
+                  src={fotoPerfilDefault}
+                  alt="Foto de Perfil"
+                  className="foto-perfil"
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    marginRight: "8px"
+                  }}
+                />
                 Olá, {usuarioNome.split(" ")[0]}
               </Link>
             </li>

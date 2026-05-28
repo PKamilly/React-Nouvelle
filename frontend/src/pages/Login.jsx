@@ -63,15 +63,17 @@ function Login() {
           
           <form onSubmit={handleSubmit} id="formLogin">
             <div className="login_senha_caixas">
+              <h4>E-mail:</h4>
               <input
                 type="email"
-                placeholder="E-mail"
+                placeholder="nome@email.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
               />
             </div>
             <div className="login_senha_caixas">
+              <h4>Senha:</h4>
               <input
                 type="password"
                 placeholder="Senha"

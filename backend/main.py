@@ -10,19 +10,25 @@ O que mudou em relação à versão anterior:
 - Mantido: CORSMiddleware, bcrypt, conexão com banco, lógica de negócio
 '''
 
-from fastapi import FastAPI, Request, Form, Header
+from fastapi import FastAPI, Request, Form, Header, File, UploadFile
 from fastapi.responses import JSONResponse        # Substitui o TemplateResponse e RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from conexao import obter_conexao
 from datetime import datetime
 import httpx
 import bcrypt
+import os
 
 # ─────────────────────────────────────────────
 # CONFIGURAÇÃO DO APP
 # ─────────────────────────────────────────────
 
 app = FastAPI()
+
+# Define a pasta de uploads e garante que ela exista
+UPLOAD_DIR = "uploads"
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 # CORS: permite que o React (localhost:5173) acesse esta API (localhost:8000)
 # Sem isso, o navegador bloqueia todas as requisições do React para cá
@@ -32,6 +38,11 @@ app.add_middleware(
     allow_credentials=True,   # Necessário para cookies funcionarem entre origens
     allow_methods=["*"],
     allow_headers=["*"],
+)
+app.mount(
+    "/uploads",
+    StaticFiles(directory="uploads"),
+    name="uploads"
 )
 
 # Removemos os app.mount() de css, js e assets.
@@ -171,7 +182,8 @@ async def processar_cadastro(
     email: str = Form(...),
     telefone: str = Form(...),
     data_nasc: str = Form(...),
-    senha: str = Form(...)
+    senha: str = Form(...),
+    foto: UploadFile = File(None)
 ):
     '''
     Antes: redirecionava para login.html em caso de sucesso,
@@ -192,13 +204,30 @@ async def processar_cadastro(
             content={"sucesso": False, "mensagem": "Erro de conexão com o banco."}
         )
 
+    # LOGICA PARA SALVAR A FOTO
+    nome_foto = None
+    if foto and foto.filename:
+        # Extrai a extensão do arquivo (ex: .jpg, .png) para manter o formato original
+        extensao = os.path.splitext(foto.filename)[1]
+
+        # Cria um nome único usando o CPF limpo para evitar nomes duplicados
+        cpf_limpo = cpf.replace(".", "").replace("-", "")
+        nome_foto = f"{cpf_limpo}{extensao}"
+
+        caminho_arquivo = os.path.join(UPLOAD_DIR, nome_foto)
+
+        # Salva o arquivo fisicamente na pasta 'uploads'
+        with open(caminho_arquivo, "wb") as arquivo_local:
+            arquivo_local.write(await foto.read())
+
+
     try:
         cursor = conexao.cursor()
         sql = """
-            INSERT INTO Usuario(cpf, nome, email, telefone, data_nasc, senha)
-            VALUES (%s, %s, %s, %s, %s, %s)
+            INSERT INTO Usuario(cpf, nome, email, telefone, data_nasc, senha, fotoPerfil)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
         """
-        cursor.execute(sql, (cpf, nome, email, telefone, data_nasc, senha_cripto))
+        cursor.execute(sql, (cpf, nome, email, telefone, data_nasc, senha_cripto, nome_foto))
         conexao.commit()
 
         # status_code=201 = "Created" — convenção para criação de recurso bem-sucedida
