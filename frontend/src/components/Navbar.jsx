@@ -5,18 +5,26 @@ import { useState, useEffect } from "react";
 
 function Navbar() {
   const [usuarioNome, setUsuarioNome] = useState(null);
+  const [usuarioFoto, setUsuarioFoto] = useState(null);
 
   useEffect(() => {
-
     const nome = localStorage.getItem("usuario_nome");
+    const foto = localStorage.getItem("usuario_foto");
+
     if (nome) {
       setUsuarioNome(nome);
     }
+    if(foto){
+      setUsuarioFoto(foto);
+    }
+
   }, []);
   function handleLogout() {
     localStorage.removeItem("usuario_nome");
     localStorage.removeItem("usuario_cpf");
+    localStorage.removeItem("usuarioFoto");
     setUsuarioNome(null);
+    setUsuarioFoto(null);
     window.location.href = "/";
   }
 
@@ -45,7 +53,7 @@ function Navbar() {
             <li>
               <Link id="menuPerfil" to="/perfil">
                 <img
-                  src={fotoPerfilDefault}
+                  src={usuarioFoto ? `http://localhost:8000/uploads/${usuarioFoto}` : fotoPerfilDefault}
                   alt="Foto de Perfil"
                   className="foto-perfil"
                   style={{

@@ -142,7 +142,7 @@ async def processar_login(
 
     try:
         cursor = conexao.cursor(dictionary=True)
-        cursor.execute("SELECT cpf, nome, senha FROM Usuario WHERE email = %s", (email,))
+        cursor.execute("SELECT cpf, nome, senha, fotoPerfil FROM Usuario WHERE email = %s", (email,))
         usuario = cursor.fetchone()
 
         if not usuario:
@@ -161,7 +161,7 @@ async def processar_login(
             )
 
         # Retorno simples — o React cuida de salvar e redirecionar
-        return {"sucesso": True, "nome": usuario["nome"], "cpf": usuario["cpf"]}
+        return {"sucesso": True, "nome": usuario["nome"], "cpf": usuario["cpf"], "fotoPerfil": usuario["fotoPerfil"]}
 
     except Exception as e:
         print(f"Erro no login: {e}")

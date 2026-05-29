@@ -31,6 +31,13 @@ function Login() {
         localStorage.setItem("usuario_nome", dados.nome);
         localStorage.setItem("usuario_cpf", dados.cpf);
 
+        // Salva o nome da foto se ela existir, ou limpa se for nula
+        if (dados.foto_perfil) {
+          localStorage.setItem("usuario_foto", dados.foto_perfil);
+        } else {
+          localStorage.removeItem("usuario_foto");
+        }
+        
         navigate("/");
       } else {
         setMensagem(dados.mensagem || "Erro ao fazer login.");

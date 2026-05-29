@@ -163,13 +163,27 @@ function Cadastro() {
                 alt="Preview-da-foto-de-perfil"
                 className="previewFotoPerfil"
                 style={{
-                  width: "120px",
-                  height: "120px",
+                  width: "150px",
+                  height: "15 0px",
                   borderRadius: "50%",
                   objectFit: "cover",
                   border: "3px solid #F0AD12"
                 }}
               />
+
+              {fotoPerfil && (
+                <span
+                  style={{
+                    color: "#F0AD12",
+                    fontSize: "18px",
+                    wordBreak: "break-all",
+                    textAlign: "center",
+                    marginBottom: "5px"
+                  }}
+                >
+                  <strong>{fotoPerfil.name}</strong>
+                </span>
+              )}
 
               <label
                 for="fotoPerfilInput"
