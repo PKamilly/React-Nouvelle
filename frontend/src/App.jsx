@@ -7,7 +7,9 @@ import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
 import Perfil from "./pages/Perfil";
 import Assentos from "./pages/Assentos";
+import Sessoes from "./pages/Sessoes";
 import Pagamento from "./pages/Pagamento";
+import Ingressos from "./pages/Ingressos";
 
 function App() {
   return (
@@ -17,9 +19,11 @@ function App() {
         <Route path="/filmesCartaz" element={<FilmesCartaz />} />
         <Route path="/emBreve" element={<EmBreve />} />
         <Route path="/detalhes/:id" element={<Detalhes />} />
+        <Route path="/sessoes/:id" element={<Sessoes />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/perfil" element={<Perfil />} />
+        <Route path="/ingressos" element={<Ingressos />} />
         <Route path="/assentos" element={<Assentos />} />
         <Route path="/pagamento" element={<Pagamento />} />
       </Routes>

@@ -1,0 +1,188 @@
+.sessoes-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.filme-header {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.filme-info {
+  flex: 1;
+}
+
+.filme-info h1 {
+  color: #F0AD12;
+  margin-bottom: 15px;
+  font-size: 2.5em;
+}
+
+.filme-sinopse {
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  max-width: 600px;
+}
+
+.filme-meta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  color: #F0AD12;
+  font-weight: bold;
+}
+
+.filme-poster img {
+  max-width: 200px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sessoes-section h2 {
+  color: #F0AD12;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2em;
+}
+
+.sessoes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.sessao-card {
+  background: #1a1a1a;
+  border-radius: 10px;
+  padding: 20px;
+  border: 2px solid #333;
+  transition: all 0.3s ease;
+}
+
+.sessao-card:hover {
+  border-color: #F0AD12;
+  transform: translateY(-2px);
+}
+
+.sessao-info {
+  margin-bottom: 15px;
+}
+
+.sessao-data {
+  color: #F0AD12;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.sessao-horario {
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.sessao-sala {
+  color: #ccc;
+  margin-bottom: 5px;
+}
+
+.sessao-tipo {
+  color: #F0AD12;
+  font-weight: bold;
+}
+
+.btn-sessao {
+  background: #F0AD12;
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.btn-sessao:hover {
+  background: #d49a0f;
+}
+
+.loading,
+.sem-sessoes,
+.erro {
+  text-align: center;
+  padding: 40px;
+  color: #ccc;
+}
+
+.sem-sessoes h3,
+.erro h3 {
+  color: #F0AD12;
+  margin-bottom: 15px;
+}
+
+.btn-voltar {
+  background: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.btn-voltar:hover {
+  background: #555;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .filme-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .filme-info h1 {
+    font-size: 2em;
+  }
+
+  .sessoes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .sessoes-container {
+    padding: 10px;
+  }
+
+  .filme-header {
+    padding: 15px;
+  }
+
+  .filme-info h1 {
+    font-size: 1.5em;
+  }
+
+  .filme-poster img {
+    max-width: 150px;
+  }
+
+  .sessao-horario {
+    font-size: 1.2em;
+  }
+}

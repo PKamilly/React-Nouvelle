@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/perfil.css";
 import Navbar from "../components/Navbar";
 
@@ -157,6 +157,9 @@ function Perfil() {
             Meus Dados
           </h1>
           <p>Aqui você pode atualizar suas informações ou excluir sua conta.</p>
+          <Link to="/ingressos" className="btn-login" style={{ marginTop: "15px", display: "inline-block" }}>
+            📋 Meus Ingressos
+          </Link>
         </div>
 
         <div className="Tamanho_Caixas_TXT">

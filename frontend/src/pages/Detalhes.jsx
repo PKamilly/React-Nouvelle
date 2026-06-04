@@ -88,7 +88,7 @@ function Detalhes() {
 
             {podeComprar ? (
               usuarioCpf ? (
-                <Link to="/assentos" className="btn-comprar">
+                <Link to={`/sessoes/${id}`} className="btn-comprar">
                   Comprar Ingresso
                 </Link>
               ) : (
