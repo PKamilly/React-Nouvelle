@@ -29,16 +29,21 @@ body{
     gap: 30px;
 }
 
-.menu-links a, .menu-login a {
+.menu-links a, .menu-login a,
+.menu-login button {
     display: inline-block;
     color: #F0AD12;
     text-decoration: none; /* para limpar a letra*/
     font-size: 30px;
     font-weight: 500;
     padding: 8px 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }
 
-.menu-links a:hover, .menu-login a:hover{
+
+.menu-links a:hover, .menu-login a:hover, .menu-login button:hover {
     transform: translateY(10px); /* Empurra pra baixo */
     transition: transform 0.3s ease; /* Efeito de zoom suave */
 }

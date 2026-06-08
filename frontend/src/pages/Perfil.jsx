@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/perfil.css";
 import Navbar from "../components/Navbar";
+import { useModal } from "../components/Modal";
 
 function Perfil() {
   const [cpf, setCpf]           = useState("");
@@ -14,6 +15,11 @@ function Perfil() {
   const [carregandoAtualizacao, setCarregandoAtualizacao] = useState(false);
   const [mensagem, setMensagem] = useState("");
   const navigate = useNavigate();
+  const { showAlert, showConfirm } = useModal();
+
+  function validarEmail(emailStr) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailStr);
+  }
 
   useEffect(() => {
     const cpfLogado = localStorage.getItem("usuario_cpf");
@@ -57,6 +63,22 @@ function Perfil() {
 
   async function handleAtualizar(e) {
     e.preventDefault();
+
+    const nomeLimpo = nome.trim();
+    if (nomeLimpo.length < 3) {
+      const msg = "O nome deve ter no mínimo 3 letras.";
+      setMensagem(msg);
+      showAlert("Nome inválido", msg, "erro");
+      return;
+    }
+
+    if (!validarEmail(email)) {
+      const msg = "Digite um e-mail válido.";
+      setMensagem(msg);
+      showAlert("E-mail inválido", msg, "erro");
+      return;
+    }
+
     setCarregandoAtualizacao(true);
     setMensagem("");
 
@@ -80,7 +102,9 @@ function Perfil() {
       const dados = await resposta.json();
 
       if (dados.sucesso) {
-        setMensagem(dados.mensagem);
+        const msg = dados.mensagem || "Seus dados foram atualizados com sucesso.";
+        setMensagem(msg);
+        showAlert("Perfil atualizado", msg, "sucesso");
 
         localStorage.setItem("usuario_nome", dados.usuario.nome);
 
@@ -91,11 +115,14 @@ function Perfil() {
 
       } else {
         setMensagem(dados.mensagem);
+        showAlert("Erro", dados.mensagem, "erro");
       }
 
     } catch (erro) {
       console.error("Erro ao atualizar:", erro);
-      setMensagem("Erro de conexão ao tentar atualizar.");
+      const msg = "Erro de conexão ao tentar atualizar.";
+      setMensagem(msg);
+      showAlert("Erro", msg, "erro");
     } finally {
       setCarregandoAtualizacao(false);
     }
@@ -103,38 +130,39 @@ function Perfil() {
 
   async function handleDeletar(e) {
     e.preventDefault();
-
-    const confirmou = window.confirm(
-      "Tem certeza absoluta que deseja EXCLUIR sua conta? Esta ação não pode ser desfeita."
-    );
-    if (!confirmou) return;
-
     const cpfLogado = localStorage.getItem("usuario_cpf");
 
-    try {
-      const resposta = await fetch("http://localhost:8000/deletar_conta", {
-        method: "POST",
-        headers: {
-          "usuario-cpf": cpfLogado,
-        },
-      });
+    showConfirm(
+      "Excluir conta",
+      "Tem certeza absoluta que deseja EXCLUIR sua conta? Esta ação não pode ser desfeita.",
+      async () => {
+        try {
+          const resposta = await fetch("http://localhost:8000/deletar_conta", {
+            method: "POST",
+            headers: {
+              "usuario-cpf": cpfLogado,
+            },
+          });
 
-      const dados = await resposta.json();
+          const dados = await resposta.json();
 
-      if (dados.sucesso) {
-        localStorage.removeItem("usuario_nome");
-        localStorage.removeItem("usuario_cpf");
-
-        navigate("/");
-
-      } else {
-        setMensagem(dados.mensagem);
-      }
-
-    } catch (erro) {
-      console.error("Erro ao deletar:", erro);
-      setMensagem("Erro de conexão ao tentar excluir a conta.");
-    }
+          if (dados.sucesso) {
+            localStorage.removeItem("usuario_nome");
+            localStorage.removeItem("usuario_cpf");
+            navigate("/");
+          } else {
+            setMensagem(dados.mensagem);
+            showAlert("Erro", dados.mensagem, "erro");
+          }
+        } catch (erro) {
+          console.error("Erro ao deletar:", erro);
+          const msg = "Erro de conexão ao tentar excluir a conta.";
+          setMensagem(msg);
+          showAlert("Erro", msg, "erro");
+        }
+      },
+      null
+    );
   }
 
   if (carregandoPagina) {
@@ -163,7 +191,7 @@ function Perfil() {
         </div>
 
         <div className="Tamanho_Caixas_TXT">
-          <form onSubmit={handleAtualizar} id="formPerfil">
+          <form onSubmit={handleAtualizar} id="formPerfil" noValidate>
             <div className="login_senha_caixas">
               <label style={{ color: "#F0AD12" }}>CPF (Não alterável):</label>
               <input

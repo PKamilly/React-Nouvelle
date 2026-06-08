@@ -1,0 +1,80 @@
+@keyframes _modalFadeIn {
+    from { opacity: 0; transform: scale(.96); }
+    to   { opacity: 1; transform: scale(1);   }
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: _modalFadeIn .15s ease;
+}
+
+.modal-caixa {
+    background: #1a1a1a;
+    border-radius: 12px;
+    min-width: 300px;
+    max-width: 460px;
+    width: 90%;
+    padding: 32px 28px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .5);
+    border: 1px solid transparent;
+}
+
+.modal-caixa--erro    { border-color: #c0392b; }
+.modal-caixa--sucesso { border-color: #27ae60; }
+.modal-caixa--aviso   { border-color: #F0AD12; }
+.modal-caixa--info    { border-color: #3498db; }
+
+.modal-titulo {
+    color: #fff;
+    margin: 0 0 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.modal-mensagem {
+    color: #ccc;
+    margin: 0 0 24px;
+    font-size: .93rem;
+    line-height: 1.55;
+}
+
+.modal-botoes {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.modal-btn {
+    border: none;
+    border-radius: 7px;
+    padding: 10px 32px;
+    cursor: pointer;
+    font-size: .95rem;
+    font-weight: 500;
+    transition: opacity .2s;
+}
+.modal-btn:hover { opacity: .85; }
+
+.modal-btn--ok {
+    background: var(--modal-cor, #3498db);
+    color: #fff;
+}
+
+.modal-btn--cancelar {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+    font-weight: normal;
+}
+
+.modal-btn--confirmar {
+    background: #8B0000;
+    color: #fff;
+}

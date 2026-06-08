@@ -10,10 +10,12 @@ import Assentos from "./pages/Assentos";
 import Sessoes from "./pages/Sessoes";
 import Pagamento from "./pages/Pagamento";
 import Ingressos from "./pages/Ingressos";
+import { Modal } from "./components/Modal";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Modal>
+      <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/filmesCartaz" element={<FilmesCartaz />} />
@@ -27,7 +29,8 @@ function App() {
         <Route path="/assentos" element={<Assentos />} />
         <Route path="/pagamento" element={<Pagamento />} />
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Modal>
   );
 }
 
