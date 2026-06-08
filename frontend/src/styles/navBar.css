@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+.menu {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    background-color: rgb(150, 28, 28);
+    padding: 10px 40px;
+    gap: 40px;
+    max-width: 100%;
+}
+
+.menu-links, .menu-login {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.menu-login {
+    margin-left: auto;
+}
+
+.menu-links a, .menu-login a, .btn-entrar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #F0AD12;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 8px 12px;
+}
+
+.btn-entrar {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.menu-links a:hover, .menu-login a:hover, .btn-entrar:hover {
+    transform: translateY(10px);
+    transition: transform 0.3s ease;
+}
+
+.foto-nav-mini {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #F0AD12;
+}
+
+.btn-admin {
+    text-shadow: 0 0 10px #f1c764;
+}
+
+#menu-burguer {
+    display: none;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 50px;
+    height: 8px;
+    background-color: #F0AD12;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .menu-links, .menu-login {
+        justify-content: center;
+        flex-wrap: wrap;
+        font-size: 45px;
+    }
+
+    .menu-links a, .menu-login a, .btn-entrar {
+        font-size: 35px;
+    }
+
+    .menu-links a:hover, .menu-login a:hover, .btn-entrar:hover {
+        transform: none;
+        transition: none;
+    }
+
+    .foto-nav-mini {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .menu {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .menu-links, .menu-login, .Tamanho_Logo {
+        display: none;
+    }
+
+    .menu-links, .menu-login, .Local_logo {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .menu-login {
+        margin-left: 0;
+        padding-bottom: 20px;
+    }
+
+    #menu-burguer:checked ~ .menu-links,
+    #menu-burguer:checked ~ .menu-login {
+        display: flex !important;
+    }
+
+    #menu-burguer:checked ~ .hamburger span:nth-child(1) {
+        transform: rotate(45deg) translate(20px, 20px);
+    }
+
+    #menu-burguer:checked ~ .hamburger span:nth-child(2) {
+        opacity: 0;
+    }
+
+    #menu-burguer:checked ~ .hamburger span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -4px);
+    }
+}

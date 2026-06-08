@@ -1,7 +1,6 @@
 import "../styles/assentos.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
 
 const PRECO_ASSENTO = 35.00;
 const LINHAS = 6;
@@ -39,7 +38,6 @@ function Assentos() {
 
   return (
     <div>
-      <Navbar />
       <main className="assentos-container">
         <div className="filme-info">
           <h1>Selecione seus Assentos</h1>

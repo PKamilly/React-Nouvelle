@@ -1,22 +1,34 @@
 import logoImg from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "../styles/navBar.css";
 
 function Navbar() {
   const [usuarioNome, setUsuarioNome] = useState(null);
+  const [usuarioPermissao, setUsuarioPermissao] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-
     const nome = localStorage.getItem("usuario_nome");
+    const permissao = localStorage.getItem("usuario_permissao");
+    
     if (nome) {
       setUsuarioNome(nome);
     }
+    if (permissao) {
+      setUsuarioPermissao(permissao);
+    }
   }, []);
+
   function handleLogout() {
     localStorage.removeItem("usuario_nome");
     localStorage.removeItem("usuario_cpf");
+    localStorage.removeItem("usuario_permissao");
+    localStorage.removeItem("usuario_caminho_final");
+    
     setUsuarioNome(null);
-    window.location.href = "/";
+    setUsuarioPermissao(null);
+    navigate("/");
   }
 
   return (
@@ -41,6 +53,11 @@ function Navbar() {
       <ul className="menu-login">
         {usuarioNome ? (
           <>
+            {usuarioPermissao === 'ADMINISTRADOR' && (
+              <li>
+                <Link to="/admin" className="btn-admin">Painel Admin</Link>
+              </li>
+            )}
             <li>
               <Link id="menuPerfil" to="/perfil">
                 Olá, {usuarioNome.split(" ")[0]}

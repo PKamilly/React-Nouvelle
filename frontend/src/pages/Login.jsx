@@ -3,7 +3,6 @@ import "../styles/login.css";
 import "../styles/loginCadastro.css";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import { useModal } from "../components/Modal";
 
 function Login() {
@@ -59,8 +58,6 @@ function Login() {
 
   return (
     <div>
-      <Navbar />
-
       <div id="divLogin">
 
         <div id="divLeft">

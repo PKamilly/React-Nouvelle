@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import "../styles/meusIngressos.css";
-import Navbar from "../components/Navbar";
+import "../styles/ingressos.css";
 
 function Ingressos() {
   const navigate = useNavigate();
@@ -26,38 +25,40 @@ function Ingressos() {
         "usuario-cpf": cpf,
       },
     })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error("Falha ao buscar ingressos");
+        return res.json();
+      })
       .then(dados => {
-        setIngressos(dados.ingressos || []);
+        // O backend em Python retorna a lista diretamente (Array), não um objeto com a chave 'ingressos'
+        const lista = Array.isArray(dados) ? dados : [];
+        setIngressos(lista);
         setCarregando(false);
 
-        // Se houver ingressos, selecionar o primeiro
-        if (dados.ingressos && dados.ingressos.length > 0) {
-          setIngressoSelecionado(dados.ingressos[0]);
+        // Se houver ingressos, seleciona automaticamente o primeiro
+        if (lista.length > 0) {
+          setIngressoSelecionado(lista[0]);
         }
       })
       .catch(err => {
         console.error("Erro ao carregar ingressos:", err);
-        setErro("Erro ao carregar seus ingressos");
+        setErro("Não foi possível carregar os seus ingressos.");
         setCarregando(false);
       });
   }
 
   function formatarDataHora(valor) {
     if (!valor) return "N/A";
-    const data = new Date(valor);
-    if (isNaN(data.getTime())) {
+    // O backend envia no formato "YYYY-MM-DD HH:MM". 
+    // Vamos apenas reorganizar as partes do texto para ficar no formato do Brasil
+    try {
+      const [dataStr, horaStr] = valor.split(' ');
+      if (!dataStr || !horaStr) return valor;
+      const [ano, mes, dia] = dataStr.split('-');
+      return `${dia}/${mes}/${ano} ${horaStr}`;
+    } catch {
       return valor;
     }
-    return (
-      data.toLocaleDateString("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }) +
-      " " +
-      data.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })
-    );
   }
 
   function handleSelectChange(e) {
@@ -73,154 +74,146 @@ function Ingressos() {
 
   if (carregando) {
     return (
-      <div>
-        <Navbar />
-        <main className="main-ingressos">
-          <div className="conteudo-ingressos">
-            <p>Carregando seus ingressos...</p>
-          </div>
-        </main>
-      </div>
+      <main className="main-ingressos">
+        <div className="conteudo-ingressos">
+          <h2 style={{ color: "#F0AD12", textAlign: "center" }}>Carregando seus ingressos...</h2>
+        </div>
+      </main>
     );
   }
 
   if (erro) {
     return (
-      <div>
-        <Navbar />
-        <main className="main-ingressos">
-          <div className="conteudo-ingressos">
-            <p style={{ color: "#F0AD12" }}>{erro}</p>
-            <Link to="/perfil" className="btn-login btn-voltar">
-              Voltar ao Perfil
-            </Link>
-          </div>
-        </main>
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <Navbar />
       <main className="main-ingressos">
         <div className="conteudo-ingressos">
-          <div className="cabecalho-ingressos">
-            <h1 className="tituloPerfil">Meus Ingressos</h1>
-            <p className="descricaoPerfil">
-              Selecione um ingresso para visualizar os detalhes da sua sessão.
-            </p>
-          </div>
-
-          {ingressos.length > 0 ? (
-            <>
-              <div className="login_senha_caixas" style={{ marginBottom: "20px" }}>
-                <label style={{ color: "#F0AD12", display: "block", marginBottom: "6px" }}>
-                  Escolha um ingresso:
-                </label>
-                <select
-                  onChange={handleSelectChange}
-                  value={ingressoSelecionado?.ingresso_id || ""}
-                  style={{
-                    width: "100%",
-                    padding: "10px",
-                    borderRadius: "8px",
-                    background: "#111",
-                    color: "#fff",
-                    border: "1px solid #333",
-                  }}
-                >
-                  <option value="">-- Selecione um ingresso --</option>
-                  {ingressos.map(ingresso => (
-                    <option key={ingresso.ingresso_id} value={ingresso.ingresso_id}>
-                      Ingresso #{ingresso.ingresso_id} - {ingresso.filme_nome} -{" "}
-                      {formatarDataHora(ingresso.horario_inicio)}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="lista-ingressos">
-                {ingressos.map(ingresso => (
-                  <button
-                    key={ingresso.ingresso_id}
-                    className={`btn-ingresso-item ${
-                      ingressoSelecionado?.ingresso_id === ingresso.ingresso_id
-                        ? "ativo"
-                        : ""
-                    }`}
-                    onClick={() => handleBotaoIngresso(ingresso.ingresso_id)}
-                  >
-                    <strong>{ingresso.filme_nome}</strong>
-                    <p>Ingresso #{ingresso.ingresso_id}</p>
-                    <p>Assento: {ingresso.numero_assento || "Não definido"}</p>
-                    <p>Horário: {formatarDataHora(ingresso.horario_inicio)}</p>
-                  </button>
-                ))}
-              </div>
-
-              <div className="detalhes-ingresso">
-                {ingressoSelecionado ? (
-                  <>
-                    <h2>Detalhes do Ingresso</h2>
-                    <p>
-                      <strong>Ingresso:</strong> #{ingressoSelecionado.ingresso_id}
-                    </p>
-                    <p>
-                      <strong>Filme:</strong> {ingressoSelecionado.filme_nome}
-                    </p>
-                    <p>
-                      <strong>Horário:</strong>{" "}
-                      {formatarDataHora(ingressoSelecionado.horario_inicio)}
-                    </p>
-                    <p>
-                      <strong>Tipo:</strong> {ingressoSelecionado.dub_leg}
-                    </p>
-                    <p>
-                      <strong>Assento:</strong> {ingressoSelecionado.numero_assento || "Não definido"}
-                    </p>
-                    <p>
-                      <strong>Valor pago:</strong> R${" "}
-                      {Number(ingressoSelecionado.valor_total || 0).toFixed(2)}
-                    </p>
-                    <p>
-                      <strong>Pagamento:</strong> {ingressoSelecionado.metodo_pagamento || "N/A"}
-                    </p>
-                    <p>
-                      <strong>Status:</strong> {ingressoSelecionado.status || "N/A"}
-                    </p>
-                    <p>
-                      <strong>ID do pagamento:</strong> {ingressoSelecionado.pagamento_id || "N/A"}
-                    </p>
-                    <p>
-                      <strong>Sala:</strong> {ingressoSelecionado.sala_quantidade || "N/A"} assentos
-                    </p>
-                    <p>
-                      <strong>Descrição do filme:</strong>
-                      <br />
-                      {ingressoSelecionado.filme_descricao || "Sem descrição"}
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <h2>Detalhes do Ingresso</h2>
-                    <p>Selecione um ingresso para ver as informações completas.</p>
-                  </>
-                )}
-              </div>
-            </>
-          ) : (
-            <div className="sem-ingressos">
-              <p>Você ainda não comprou ingressos.</p>
-            </div>
-          )}
-
-          <Link to="/perfil" className="btn-login btn-voltar">
+          <h2 style={{ color: "#F0AD12", textAlign: "center", marginBottom: "20px" }}>{erro}</h2>
+          <Link 
+            to="/perfil" 
+            style={{ display: "block", textAlign: "center", color: "#F0AD12", textDecoration: "underline" }}
+          >
             Voltar ao Perfil
           </Link>
         </div>
       </main>
-    </div>
+    );
+  }
+
+  return (
+    <main className="main-ingressos">
+      <div className="conteudo-ingressos">
+        <div className="cabecalho-ingressos">
+          <h1 className="tituloPerfil">Meus Ingressos</h1>
+          <p className="descricaoPerfil">
+            Selecione um ingresso para visualizar os detalhes da sua sessão.
+          </p>
+        </div>
+
+        {ingressos.length > 0 ? (
+          <>
+            {/* Oculto no Desktop, visível apenas em telas menores caso precise de um dropdown */}
+            <div className="login_senha_caixas" style={{ marginBottom: "20px" }}>
+              <label style={{ color: "#F0AD12", display: "block", marginBottom: "6px" }}>
+                Escolha um ingresso:
+              </label>
+              <select
+                onChange={handleSelectChange}
+                value={ingressoSelecionado?.ingresso_id || ""}
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "8px",
+                  background: "#111",
+                  color: "#fff",
+                  border: "1px solid #333",
+                }}
+              >
+                <option value="">-- Selecione um ingresso --</option>
+                {ingressos.map(ingresso => (
+                  <option key={ingresso.ingresso_id} value={ingresso.ingresso_id}>
+                    Ingresso #{ingresso.ingresso_id} - {ingresso.filme_nome} -{" "}
+                    {formatarDataHora(ingresso.horario_inicio)}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="lista-ingressos">
+              {ingressos.map(ingresso => {
+                const isSelecionado = ingressoSelecionado?.ingresso_id === ingresso.ingresso_id;
+                
+                return (
+                  <button
+                    key={ingresso.ingresso_id}
+                    className="btn-ingresso-item"
+                    // Aplica estilo dourado ao botão que está clicado/selecionado
+                    style={isSelecionado ? { background: "rgba(240, 173, 18, 0.15)", borderColor: "#F0AD12" } : {}}
+                    onClick={() => handleBotaoIngresso(ingresso.ingresso_id)}
+                  >
+                    <strong style={{ color: isSelecionado ? "#F0AD12" : "#fff" }}>
+                      {ingresso.filme_nome}
+                    </strong>
+                    <p style={{ margin: "4px 0" }}>Ingresso #{ingresso.ingresso_id}</p>
+                    <p style={{ margin: "4px 0", color: "#aaa" }}>Assento: {ingresso.numero_assento || "Não definido"}</p>
+                    <p style={{ margin: "4px 0", color: "#aaa" }}>Horário: {formatarDataHora(ingresso.horario_inicio)}</p>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="detalhes-ingresso">
+              {ingressoSelecionado ? (
+                <>
+                  <h2 style={{ color: "#F0AD12" }}>Detalhes do Ingresso</h2>
+                  <p><strong>Ingresso:</strong> #{ingressoSelecionado.ingresso_id}</p>
+                  <p><strong>Filme:</strong> {ingressoSelecionado.filme_nome}</p>
+                  <p><strong>Horário:</strong> {formatarDataHora(ingressoSelecionado.horario_inicio)}</p>
+                  <p><strong>Tipo:</strong> {ingressoSelecionado.dub_leg === "DUB" ? "Dublado" : "Legendado"}</p>
+                  <p><strong>Assento:</strong> {ingressoSelecionado.numero_assento || "Não definido"}</p>
+                  <p><strong>Valor pago:</strong> R$ {Number(ingressoSelecionado.valor_total || 0).toFixed(2)}</p>
+                  <p><strong>Método de Pagamento:</strong> {ingressoSelecionado.metodo_pagamento?.replace(/_/g, " ") || "N/A"}</p>
+                  <p><strong>Status:</strong> {ingressoSelecionado.status || "N/A"}</p>
+                  <p><strong>ID da transação:</strong> {ingressoSelecionado.pagamento_id || "N/A"}</p>
+                  <p><strong>Sala:</strong> {ingressoSelecionado.sala_quantidade || "N/A"} assentos</p>
+                  
+                  <p style={{ marginTop: "24px", marginBottom: "8px", color: "#F0AD12" }}>
+                    <strong>Sinopse do Filme:</strong>
+                  </p>
+                  <p style={{ color: "#ccc", fontSize: "15px" }}>
+                    {ingressoSelecionado.filme_descricao || "Sem descrição disponível."}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h2 style={{ color: "#F0AD12" }}>Detalhes do Ingresso</h2>
+                  <p>Selecione um ingresso para ver as informações completas.</p>
+                </>
+              )}
+            </div>
+          </>
+        ) : (
+          <div className="sem-ingressos">
+            <p>Você ainda não comprou ingressos.</p>
+          </div>
+        )}
+
+        <Link
+          to="/perfil"
+          style={{
+            display: "inline-block",
+            padding: "12px 24px",
+            background: "#333",
+            color: "#fff",
+            textDecoration: "none",
+            borderRadius: "8px",
+            marginTop: "20px",
+            width: "fit-content",
+            fontWeight: "bold"
+          }}
+        >
+          Voltar ao Perfil
+        </Link>
+      </div>
+    </main>
   );
 }
 
