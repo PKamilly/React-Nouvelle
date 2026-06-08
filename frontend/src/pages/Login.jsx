@@ -4,15 +4,30 @@ import "../styles/loginCadastro.css";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { useModal } from "../components/Modal";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [mensagem, setMensagem] = useState("");
   const navigate = useNavigate();
+  const { showAlert } = useModal();
+
+  function validarEmail(emailStr) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailStr);
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    if (!validarEmail(email)) {
+      showAlert("E-mail inválido", "Digite um e-mail válido.", "erro");
+      return;
+    }
+
+    if (!senha.trim()) {
+      showAlert("Senha inválida", "A senha não pode ficar em branco.", "erro");
+      return;
+    }
 
     try {
       const formData = new FormData();
@@ -33,10 +48,12 @@ function Login() {
 
         navigate("/");
       } else {
-        setMensagem(dados.mensagem || "Erro ao fazer login.");
+        const msg = dados.mensagem || "Erro ao fazer login.";
+        showAlert("Erro ao logar", msg, "erro");
       }
     } catch (err) {
-      setMensagem("Erro de conexão com o servidor.");
+      const msg = "Erro de conexão com o servidor.";
+      showAlert("Erro", msg, "erro");
     }
   }
 
@@ -49,26 +66,19 @@ function Login() {
         <div id="divLeft">
           <div className="Tamanho_Logo">
             <img src={logoImg} alt="Nouvelle"/>
-    
-            {mensagem && (
-              <p style={{ color: "red", marginTop: "15px", textAlign: "center" }}>
-                {mensagem}
-              </p>
-            )}
           </div>
         </div>
         
         <div id="divRight">
           <h1 className="tituloPagina">PÁGINA DE LOGIN</h1>
           
-          <form onSubmit={handleSubmit} id="formLogin">
+          <form onSubmit={handleSubmit} id="formLogin" noValidate>
             <div className="login_senha_caixas">
               <input
                 type="email"
                 placeholder="E-mail"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                required
               />
             </div>
             <div className="login_senha_caixas">

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/cadastro.css";
 import "../styles/loginCadastro.css";
 import Navbar from "../components/Navbar";
+import { useModal } from "../components/Modal";
 function Cadastro() {
 
   const [cpf, setCpf]           = useState("");  // Texto digitado no campo CPF
@@ -17,6 +18,7 @@ function Cadastro() {
   const [carregando, setCarregando] = useState(false);
 
   const navigate = useNavigate();
+  const { showAlert } = useModal();
 
   function aplicarMascaraCpf(valor) {
     let v = valor.replace(/\D/g, "");
@@ -50,18 +52,52 @@ function Cadastro() {
     return resto === parseInt(c[10]);
   }
 
+  function validarEmail(emailStr) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailStr);
+  }
+
+  function validarSenha(senhaStr) {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/.test(senhaStr);
+  }
+
 
   async function handleSubmit(e) {
     e.preventDefault();
 
+    const nomeLimpo = nome.trim();
+    if (nomeLimpo.length < 3) {
+      const msg = "O nome deve ter no mínimo 3 letras.";
+      setMensagem(msg);
+      showAlert("Nome inválido", msg, "erro");
+      return;
+    }
+
+    if (!validarEmail(email)) {
+      const msg = "Digite um e-mail válido.";
+      setMensagem(msg);
+      showAlert("E-mail inválido", msg, "erro");
+      return;
+    }
+
+    if (!validarSenha(senha)) {
+      const msg = "A senha deve ter pelo menos 8 caracteres, incluindo letra maiúscula, minúscula, número e símbolo.";
+      setMensagem(msg);
+      showAlert("Senha fraca", msg, "erro");
+      return;
+    }
+
     if (!validarCpf(cpf)) {
-      setMensagem("CPF inválido. Verifique os números digitados.");
+      const msg = "CPF inválido. Verifique os números digitados.";
+      setMensagem(msg);
+      showAlert("CPF inválido", msg, "erro");
       return;
     }
 
     const telefoneLimpo = telefone.replace(/\D/g, "");
     if (telefoneLimpo.length < 10) {
-      setMensagem("Telefone inválido. Digite com DDD.");
+      const msg = "Telefone inválido. Digite com DDD.";
+      setMensagem(msg);
+      showAlert("Telefone inválido", msg, "erro");
       return;
     }
 
@@ -91,11 +127,14 @@ function Cadastro() {
         });
       } else {
         setMensagem(dados.mensagem);
+        showAlert("Erro", dados.mensagem, "erro");
       }
 
     } catch (erro) {
       console.error("Erro ao conectar:", erro);
-      setMensagem("Erro de conexão com o servidor. Tente novamente.");
+      const msg = "Erro de conexão com o servidor. Tente novamente.";
+      setMensagem(msg);
+      showAlert("Erro de conexão", msg, "erro");
     } finally {
       setCarregando(false);
     }
@@ -115,7 +154,7 @@ function Cadastro() {
         <div id="divRight">
           <h1 className="tituloPagina">PÁGINA DE CADASTRO</h1>
 
-          <form onSubmit={handleSubmit} id="formCadastro">
+          <form onSubmit={handleSubmit} id="formCadastro" noValidate>
             <div className="Tamanho_Caixas_TXT">
               <div className="login_senha_caixas">
                 <input
