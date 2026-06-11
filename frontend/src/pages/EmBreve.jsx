@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/emBreve.css";
 import Navbar from "../components/Navbar";
+import CardFilme from "../components/CardFilme";
+
 function EmBreve() {
 
   const [filmes, setFilmes]       = useState([]);
@@ -64,20 +66,7 @@ function EmBreve() {
 
         <div className="gradeFilmes" id="corpoTabela">
           {filmes.map((filme) => (
-            <div key={filme.id} className="cardFilme">
-              <Link to={`/detalhes/${filme.id}`}>
-                <img
-                  className="posterFilme"
-                  src={
-                    filme.poster_path
-                      ? `https://image.tmdb.org/t/p/w500${filme.poster_path}`
-                      : "/assets/sem-foto.jpg"
-                  }
-                  alt={filme.title}
-                />
-                <strong className="tituloFilme">{filme.title}</strong>
-              </Link>
-            </div>
+            <CardFilme key={filme.id} filme={filme} />
           ))}
 
           {filmes.length === 0 && (

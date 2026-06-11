@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../styles/filmesCartaz.css"; 
+import CardFilme from "../components/CardFilme";
+
 
 function FilmesCartaz() {
   const [todosFilmes, setTodosFilmes] = useState([]); 
@@ -61,16 +63,7 @@ function FilmesCartaz() {
 
         <div className="gradeFilmes">
           {filmesFiltrados.map(filme => (
-            <div key={filme.id} className="cardFilme">
-              <Link to={`/detalhes/${filme.id}`}>
-                <img
-                  className="posterFilme"
-                  src={`https://image.tmdb.org/t/p/w500${filme.poster_path}`}
-                  alt={filme.title}
-                />
-                <strong className="tituloFilme">{filme.title}</strong>
-              </Link>
-            </div>
+            <CardFilme key={filme.id} filme={filme} />
           ))}
         </div>
       </center>
