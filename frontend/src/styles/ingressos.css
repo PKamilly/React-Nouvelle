@@ -115,11 +115,6 @@
   background-color: #555;
 }
 
-.login_senha_caixas {
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-}
-
 /* Responsividade */
 @media (max-width: 768px) {
   .main-ingressos {

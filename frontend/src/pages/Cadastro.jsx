@@ -5,6 +5,7 @@ import "../styles/cadastro.css";
 import "../styles/loginCadastro.css";
 import Navbar from "../components/Navbar";
 import { useModal } from "../components/Modal";
+import { authService } from "../services/authService";
 function Cadastro() {
 
   const [cpf, setCpf]           = useState("");  // Texto digitado no campo CPF
@@ -105,21 +106,16 @@ function Cadastro() {
     setMensagem("");
 
     try {
-      const formData = new FormData();
-      formData.append("cpf", cpf);
-      formData.append("nome", nome);
-      formData.append("email", email);
-      formData.append("telefone", telefone);
-      formData.append("data_nasc", dataNasc);
-      formData.append("senha", senha);
+      const dadosUsuario = {
+        cpf,
+        nome,
+        email,
+        telefone,
+        dataNasc,
+        senha
+      };
 
-
-      const resposta = await fetch("http://localhost:8000/cadastrar", {
-        method: "POST",
-        body: formData,
-      });
-
-      const dados = await resposta.json();
+      const dados = await authService.cadastrar(dadosUsuario);
 
       if (dados.sucesso) {
         navigate("/login", {

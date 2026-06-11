@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useModal } from "../components/Modal";
+import { authService } from "../services/authService";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -30,17 +31,8 @@ function Login() {
     }
 
     try {
-      const formData = new FormData();
-      formData.append("email", email);
-      formData.append("senha", senha);
-
-      const resposta = await fetch("http://localhost:8000/login", {
-        method: "POST",
-        body: formData,
-        credentials: "include",
-      });
-
-      const dados = await resposta.json();
+      // Usando o service para fazer o login que já lida com o backend
+      const dados = await authService.login(email, senha);
 
       if (dados.sucesso) {
         localStorage.setItem("usuario_nome", dados.nome);
@@ -55,6 +47,7 @@ function Login() {
         showAlert("Erro ao logar", msg, "erro");
       }
     } catch (err) {
+      console.error(err);
       const msg = "Erro de conexão com o servidor.";
       showAlert("Erro", msg, "erro");
     }
