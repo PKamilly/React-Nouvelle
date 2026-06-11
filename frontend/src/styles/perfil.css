@@ -1,20 +1,106 @@
-.Local_logo {
-    flex: 1;
+.main-perfil {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     gap: 80px;
     padding: 40px;
+    background-color: black;
+    min-height: 100vh;
 }
 
-.Tamanho_Logo {
+.tamanho_logo {
     flex: 0 1 450px;
+    position: sticky;
+    top: 180px;
+    align-self: flex-start;
 }
 
+.tituloPerfil{
+    color: #F0AD12;
+    font-size: 40px;
+    text-decoration: underline;
+    margin-bottom: 20px;
+}
+
+.descricaoPerfil {
+    color: white;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+/* ============================================= */
+/* IMAGEM PERFIL */
+.divFotoPerfil{
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+#preview-img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #F0AD12;
+}
+
+#nomeArquivo{
+    color: #F0AD12;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 20px;
+    word-break: break-all;
+}
+
+/* BOTÕES IMAGEM */
+.botoes_nome_imagem{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 220px;
+    flex-shrink: 0;
+    align-self: center;
+}
+
+#btnAddFoto{
+    display: none;
+}
+
+/* ============================================= */
+/* CAIXAS DE TEXTO (input) */
 .Tamanho_Caixas_TXT {
     flex: 0 1 380px;
 }
 
+/* BOTÕES EM GERAL */
+.btn-login, .botao-upload, .btn-excluir-foto {
+    width: 100%;
+    padding: 15px;
+    background-color: #141414;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-login:hover, .botao-upload:hover, .btn-excluir-foto:hover {
+    background-color: #F0AD12;
+    color: #141414;
+}
+
+.btn-login:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* INPUT DAS INFORMAÇÕES */
 .login_senha_caixas {
     margin-bottom: 15px;
 }
@@ -28,35 +114,11 @@
     padding: 0 15px;
     color: white;
     font-size: 1rem;
+    box-sizing: border-box;
 }
 
 .login_senha_caixas input:focus {
     outline: 2px solid #F0AD12;
-}
-
-/* --- BOTÕES --- */
-.btn-login {
-    width: 100%;
-    padding: 15px;
-    background-color: #141414;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-login:hover {
-    background-color: #F0AD12;
-    color: #141414;
-}
-
-/* --- ESTILOS EXCLUSIVOS DO PERFIL --- */
-.titulo-perfil {
-    color: #F0AD12;
-    font-size: 40px;
-    margin-bottom: 20px;
 }
 
 .input-bloqueado {
@@ -65,38 +127,51 @@
     cursor: not-allowed;
 }
 
-.linha-divisoria {
-    border: 1px solid #333;
-    margin: 20px 0;
+/* Asterisco vermelho nos campos obrigatórios */
+.obrigatorio::after {
+    content: " *";
+    color: #e74c3c;
+    font-weight: bold;
 }
 
-.btn-atualizar {
-    margin-bottom: 15px;
-}
-
-.btn-excluir {
-    background-color: #8B0000;
-    color: white;
-}
-
-.btn-excluir:hover {
-    background-color: #ff3333;
-    color: white;
-}
-
-.mensagem-alerta {
+/* MENSAGEM DE ERRO INLINE */
+.msg-campo-erro {
     color: #F0AD12;
-    margin-top: 15px;
-    text-align: center;
+    font-size: 0.82rem;
+    font-weight: bold;
+    margin-top: 4px;
+    display: block;
 }
 
 /* ============================================= */
 /* RESPONSIVIDADE PARA O CELULAR */
 @media (max-width: 768px) {
-    #divLogin, #divCadastro {
+    .main-perfil {
         flex-direction: column;
         align-items: center;
-        width: 80%;
-        margin: 40px auto;
+        gap: 40px;
+        padding: 20px;
+    }
+
+    .tamanho_logo {
+        position: static;
+        flex: 1 1 auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .divFotoPerfil {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .Tamanho_Caixas_TXT {
+        flex: 1 1 auto;
+        width: 100%;
     }
 }

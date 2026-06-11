@@ -1,4 +1,7 @@
 import logoImg from "../assets/logo.png";
+// IMPORTANTE: Adicione o import da imagem padrão aqui
+import fotoPerfilDefault from "../assets/fotoPerfilDefault.png"; 
+
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../styles/navBar.css";
@@ -7,17 +10,38 @@ function Navbar() {
   const [usuarioNome, setUsuarioNome] = useState(null);
   const [usuarioPermissao, setUsuarioPermissao] = useState(null);
   const [usuarioFoto, setUsuarioFoto] = useState(null);
+  
   const navigate = useNavigate();
-  const location = useLocation(); // Ajuda a saber em qual página estamos
+  const location = useLocation();
 
-  useEffect(() => {
+  // Função centralizada para ler o Storage e atualizar a barra
+  const atualizarDadosUsuario = () => {
     const nome = localStorage.getItem("usuario_nome");
     const permissao = localStorage.getItem("usuario_permissao");
     const foto = localStorage.getItem("usuario_caminho_final");
+
+    setUsuarioNome(nome || null);
+    setUsuarioPermissao(permissao || null);
+
+    // Se tiver foto salva (e não for a string do default do html antigo), anexa o backend.
+    if (foto && foto !== "assets/fotoPerfilDefault.png" && foto !== "null") {
+      setUsuarioFoto(`http://localhost:8000/${foto}`);
+    } else {
+      setUsuarioFoto(null); // Fará com que o React use a fotoPerfilDefault no JSX
+    }
+  };
+
+  useEffect(() => {
+    // Roda ao carregar a página
+    atualizarDadosUsuario();
+
+    // Fica escutando se a página de Perfil disparar um aviso de atualização
+    window.addEventListener("perfilAtualizado", atualizarDadosUsuario);
     
-    if (nome) setUsuarioNome(nome);
-    if (permissao) setUsuarioPermissao(permissao);
-    if (foto) setUsuarioFoto(foto);
+    // Limpeza do evento ao desmontar o componente
+    return () => {
+      window.removeEventListener("perfilAtualizado", atualizarDadosUsuario);
+    };
   }, []);
 
   function handleLogout() {
@@ -32,7 +56,6 @@ function Navbar() {
     navigate("/");
   }
 
-  // Verifica se estamos na página do painel admin
   const isAdminPage = location.pathname === "/admin";
 
   return (
@@ -48,7 +71,6 @@ function Navbar() {
         <span></span>
       </label>
 
-      {/* Lógica do HTML: Se for Admin, mostra "Voltar ao Site", senão, mostra os links normais */}
       <ul className="menu-links">
         {isAdminPage ? (
           <li><Link to="/">Voltar ao Site</Link></li>
@@ -72,10 +94,12 @@ function Navbar() {
             <li className="item-perfil-nav">
               <Link id="menuPerfil" to="/perfil">
                 Olá, {usuarioNome.split(" ")[0]}
-                {/* Imagem de perfil adicionada como no index.html */}
-                {usuarioFoto && (
-                  <img src={`http://localhost:8000/${usuarioFoto}`} alt="Foto" className="foto-nav-mini" />
-                )}
+                {/* Aqui colocamos o src dinâmico com fallback para a default importada */}
+                <img 
+                  src={usuarioFoto || fotoPerfilDefault} 
+                  alt="Foto de Perfil" 
+                  className="foto-nav-mini" 
+                />
               </Link>
             </li>
             <li>
