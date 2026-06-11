@@ -342,18 +342,25 @@ function Perfil() {
               {confirmarSenha.length > 0 && novaSenha !== confirmarSenha && <small className="msg-campo-erro">As senhas não coincidem.</small>}
             </div>
 
-            <button type="submit" className="btn-login" style={{ marginBottom: "15px" }} disabled={carregandoAtualizacao}>
+            <button type="submit" className="btn-perfil" style={{ marginBottom: "15px" }} disabled={carregandoAtualizacao}>
               {carregandoAtualizacao ? "Salvando..." : "Atualizar Dados"}
             </button>
             
-            <Link to="/Ingressos" className="btn-login" style={{ marginBottom: "15px", backgroundColor: "#333" }}>Meus Ingressos</Link>
+            <button 
+              type="button" 
+              className="btn-perfil" 
+              style={{ marginBottom: "15px", backgroundColor: "#333" }}
+              onClick={() => navigate("/Ingressos")}
+            >
+              Meus Ingressos
+            </button>
 
           </form>
 
           <hr style={{ border: "1px solid #333", margin: "20px 0" }} />
           
           <form onSubmit={handleDeletar}>
-            <button type="submit" className="btn-login" style={{ backgroundColor: "#8B0000", color: "white" }}>Excluir Minha Conta</button>
+            <button type="submit" className="btn-perfil" style={{ backgroundColor: "#8B0000", color: "white" }}>Excluir Minha Conta</button>
           </form>
 
         </div>

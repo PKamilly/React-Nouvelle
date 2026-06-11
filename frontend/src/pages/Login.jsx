@@ -63,9 +63,7 @@ function Login() {
   return (
     <div>
       <Navbar />
-
       <div id="divLogin">
-
         <div id="divLeft">
           <div className="Tamanho_Logo">
             <img src={logoImg} alt="Nouvelle"/>
@@ -94,23 +92,18 @@ function Login() {
               />
             </div>
 
-            <button type="submit" className="btn-login">Entrar</button>
-
-            
+            <button type="submit" className="btn-form">Entrar</button>
 
             <div className="utilidades">
               <div className="lembre_de_mim">
                 <input type="checkbox" id="remember" />
                 <label htmlFor="remember">Lembre-se de mim</label>
               </div>
-              <a href="#" className="Qual_minha_senha">Esqueceu sua senha?</a>
+              <a href="#" className="qual_minha_senha">Esqueceu sua senha?</a>
             </div>
           </form>
         </div>
-        
       </div>
-
-
     </div>
   );
 }

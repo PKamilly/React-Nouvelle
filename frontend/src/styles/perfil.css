@@ -1,21 +1,22 @@
+/* ============================================= */
+/* MAIN DO PERFIL */
 .main-perfil {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     gap: 80px;
     padding: 40px;
-    background-color: black;
     min-height: 100vh;
 }
 
-.tamanho_logo {
+.tamanho_logo_perfil {
     flex: 0 1 450px;
     position: sticky;
     top: 180px;
     align-self: flex-start;
 }
 
-.tituloPerfil{
+.tituloPerfil {
     color: #F0AD12;
     font-size: 40px;
     text-decoration: underline;
@@ -30,14 +31,19 @@
 
 /* ============================================= */
 /* IMAGEM PERFIL */
-.divFotoPerfil{
+.divFotoPerfil {
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
     gap: 24px;
 }
 
-#preview-img{
+#container-preview {
+    display: block;
+    text-align: center;
+}
+
+#preview-img {
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -45,16 +51,17 @@
     border: 3px solid #F0AD12;
 }
 
-#nomeArquivo{
+#nomeArquivo {
     color: #F0AD12;
     font-weight: bold;
     text-decoration: underline;
     margin-top: 20px;
     word-break: break-all;
+    text-align: center;
 }
 
 /* BOTÕES IMAGEM */
-.botoes_nome_imagem{
+.botoes_nome_imagem {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -63,18 +70,17 @@
     align-self: center;
 }
 
-#btnAddFoto{
+#btnAddFoto {
     display: none;
 }
 
-/* ============================================= */
-/* CAIXAS DE TEXTO (input) */
-.Tamanho_Caixas_TXT {
+/* CAIXAS DE TEXTO (input) E BOTÕES DO PERFIL */
+.Tamanho_Caixas_TXT_Perfil {
     flex: 0 1 380px;
 }
 
-/* BOTÕES EM GERAL */
-.btn-login, .botao-upload, .btn-excluir-foto {
+/* Botoões independentes apenas para o perfil */
+.btn-perfil, .botao-upload, .btn-excluir-foto {
     width: 100%;
     padding: 15px;
     background-color: #141414;
@@ -90,22 +96,32 @@
     text-decoration: none;
 }
 
-.btn-login:hover, .botao-upload:hover, .btn-excluir-foto:hover {
+.btn-perfil:hover, .botao-upload:hover {
     background-color: #F0AD12;
     color: #141414;
 }
 
-.btn-login:disabled {
+.btn-perfil:disabled {
     opacity: 0.7;
     cursor: not-allowed;
 }
 
-/* INPUT DAS INFORMAÇÕES */
-.login_senha_caixas {
-    margin-bottom: 15px;
+.btn-excluir-conta, .btn-excluir-foto {
+    background-color: #8B0000;
 }
 
-.login_senha_caixas input {
+.btn-excluir-conta:hover, .btn-excluir-foto:hover {
+    background-color: #ff3333;
+    color: white;
+}
+
+/* INPUT DAS INFORMAÇÕES */
+.perfil_caixas {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.perfil_caixas input {
     width: 100%;
     height: 50px;
     background-color: #333;
@@ -117,8 +133,13 @@
     box-sizing: border-box;
 }
 
-.login_senha_caixas input:focus {
+.perfil_caixas input:focus {
     outline: 2px solid #F0AD12;
+}
+
+.perfil_caixas input[type="password"],
+.perfil_caixas input[type="text"] {
+    padding-right: 45px; 
 }
 
 .input-bloqueado {
@@ -127,14 +148,12 @@
     cursor: not-allowed;
 }
 
-/* Asterisco vermelho nos campos obrigatórios */
 .obrigatorio::after {
     content: " *";
     color: #e74c3c;
     font-weight: bold;
 }
 
-/* MENSAGEM DE ERRO INLINE */
 .msg-campo-erro {
     color: #F0AD12;
     font-size: 0.82rem;
@@ -144,8 +163,17 @@
 }
 
 /* ============================================= */
-/* RESPONSIVIDADE PARA O CELULAR */
+/* RESPONSIVIDADE (MOBILE) */
 @media (max-width: 768px) {
+    #menuPerfil {
+        display: block;
+        max-width: 100%;
+        border-bottom: 0;
+        border-radius: 0;
+        text-shadow: none !important;
+        background-color: rgb(114, 23, 23);
+    }
+
     .main-perfil {
         flex-direction: column;
         align-items: center;
@@ -153,7 +181,7 @@
         padding: 20px;
     }
 
-    .tamanho_logo {
+    .tamanho_logo_perfil {
         position: static;
         flex: 1 1 auto;
         width: 100%;
@@ -170,8 +198,18 @@
         width: 100%;
     }
 
-    .Tamanho_Caixas_TXT {
+    .Tamanho_Caixas_TXT_Perfil {
         flex: 1 1 auto;
         width: 100%;
+    }
+
+    .perfil_caixas input {
+        height: 80px;
+        font-size: 25px;
+    }
+
+    .btn-perfil, .botao-upload, .btn-excluir-foto {
+        font-size: 15px;
+        padding: 20px;
     }
 }
