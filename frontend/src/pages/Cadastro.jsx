@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/cadastro.css";
 import "../styles/loginCadastro.css";
+import Navbar from "../components/Navbar";
 import { useModal } from "../components/Modal";
 function Cadastro() {
 
@@ -140,6 +141,8 @@ function Cadastro() {
   }
   return (
     <div>
+      <Navbar />
+
       <div id="divCadastro">
 
         <div id="divLeft">

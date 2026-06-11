@@ -2,6 +2,7 @@ import "../styles/detalhes.css";
 
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 function formatarData(dataStr) {
   if (!dataStr) return "";
@@ -39,6 +40,8 @@ function Detalhes() {
 
   return (
     <div>
+      <Navbar />
+
       <header
         className="banner-detalhe"
         style={{

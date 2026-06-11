@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/emBreve.css";
+import Navbar from "../components/Navbar";
 function EmBreve() {
 
   const [filmes, setFilmes]       = useState([]);
@@ -34,6 +35,7 @@ function EmBreve() {
   if (carregando) {
     return (
       <div>
+        <Navbar />
         <p style={{ color: "white", textAlign: "center", marginTop: "50px" }}>
           Carregando filmes...
         </p>
@@ -44,6 +46,7 @@ function EmBreve() {
   if (erro) {
     return (
       <div>
+        <Navbar />
         <p style={{ color: "white", textAlign: "center", marginTop: "50px" }}>
           {erro}
         </p>
@@ -52,6 +55,8 @@ function EmBreve() {
   }
   return (
     <div>
+      <Navbar />
+
       <main className="conteudo-principal">
         <h2 style={{ color: "white", textAlign: "center", marginTop: "30px", fontSize: "2rem" }}>
           Em Breve

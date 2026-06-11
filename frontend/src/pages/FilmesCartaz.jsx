@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 import "../styles/filmesCartaz.css"; 
 
 function FilmesCartaz() {
@@ -38,6 +39,8 @@ function FilmesCartaz() {
 
   return (
     <div className="pagina-cartaz">
+      <Navbar />
+
       <div className="fundo-preto-busca">
         <div className="search-box">
           <input

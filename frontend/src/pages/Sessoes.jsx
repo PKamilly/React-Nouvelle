@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles/sessoes.css";
+import Navbar from "../components/Navbar";
 
 function Sessoes() {
   const { id: filmeId } = useParams();
@@ -74,6 +75,7 @@ function Sessoes() {
   if (carregando) {
     return (
       <div>
+        <Navbar />
         <main className="sessoes-container">
           <div className="loading">Carregando sessões...</div>
         </main>
@@ -83,6 +85,7 @@ function Sessoes() {
 
   return (
     <div>
+      <Navbar />
       <main className="sessoes-container">
         {filme && (
           <div className="filme-header">

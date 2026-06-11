@@ -19,7 +19,6 @@ function App() {
   return (
     <Modal>
       <BrowserRouter>
-        <Navbar />
         <SessionTimeout />
         <Routes>
           <Route path="/" element={<Home />} />

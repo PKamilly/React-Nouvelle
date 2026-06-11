@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/perfil.css";
+import Navbar from "../components/Navbar";
 import { useModal } from "../components/Modal";
 
 function Perfil() {
@@ -167,6 +168,7 @@ function Perfil() {
   if (carregandoPagina) {
     return (
       <div>
+        <Navbar />
         <p style={{ color: "white", textAlign: "center", marginTop: "50px" }}>
           Carregando seus dados...
         </p>
@@ -176,6 +178,7 @@ function Perfil() {
 
   return (
     <div>
+      <Navbar />
       <main className="Local_logo" style={{backgroundColor: "black"}}>
         <div className="Tamanho_Logo">
           <h1 style={{ color: "#F0AD12", fontSize: "40px", marginBottom: "20px" }}>

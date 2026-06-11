@@ -2,6 +2,7 @@
 import "../styles/inicio.css";   //
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 function Home() {
   const [filmes, setFilmes] = useState([]);
@@ -26,6 +27,7 @@ function Home() {
 
   return (
     <div>
+      <Navbar />
 
       <div className="banner-carrossel">
         <button className="seta seta-esquerda" onClick={slideAnterior}>&#10094;</button>

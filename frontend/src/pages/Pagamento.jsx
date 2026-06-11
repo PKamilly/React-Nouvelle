@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/pagamento.css";
+import Navbar from "../components/Navbar";
 
 function Pagamento() {
   const [assentos, setAssentos] = useState([]);
@@ -177,6 +178,7 @@ function Pagamento() {
   if (sucesso) {
     return (
       <div>
+        <Navbar />
         <div style={{ textAlign: "center", marginTop: "80px", color: "white" }}>
           <h1 style={{ color: "#F0AD12", fontSize: "3rem" }}>✅ Pagamento Confirmado!</h1>
           <p style={{ marginTop: "20px", fontSize: "1.2rem" }}>
@@ -192,6 +194,8 @@ function Pagamento() {
 
   return (
     <div>
+      <Navbar />
+
       <main className="pagamento-container">
         <div className="resumo-pedido">
           <h1>Finalizar Compra</h1>

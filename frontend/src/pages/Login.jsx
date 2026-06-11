@@ -3,6 +3,7 @@ import "../styles/login.css";
 import "../styles/loginCadastro.css";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 import { useModal } from "../components/Modal";
 
 function Login() {
@@ -44,7 +45,10 @@ function Login() {
       if (dados.sucesso) {
         localStorage.setItem("usuario_nome", dados.nome);
         localStorage.setItem("usuario_cpf", dados.cpf);
-
+        localStorage.setItem("usuario_permissao", dados.permissao); 
+        if (dados.caminho_final) {
+          localStorage.setItem("usuario_caminho_final", dados.caminho_final);
+        }
         navigate("/");
       } else {
         const msg = dados.mensagem || "Erro ao fazer login.";
@@ -58,6 +62,8 @@ function Login() {
 
   return (
     <div>
+      <Navbar />
+
       <div id="divLogin">
 
         <div id="divLeft">

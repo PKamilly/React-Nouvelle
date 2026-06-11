@@ -1,7 +1,3 @@
-.menuEmBreve{
-    text-shadow: 0 0 10px #f1c764;
-}
-
 .gradeFilmes {
     display: grid;
     /* Cria colunas automáticas que se ajustam ao tamanho da tela */

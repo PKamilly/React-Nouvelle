@@ -1,8 +1,3 @@
-/* INDICATIVO DA PÁGINA ATUAL NA BARRA DE NAVEGAÇÃO NO DESKTOP */
-.btn-admin{
-    text-shadow: 0 0 10px #f1c764;
-}
-
 :root {
     --gold:       #F0AD12;
     --gold-dark:  #c48a00;
